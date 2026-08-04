@@ -20,7 +20,7 @@ class Facility(BaseModel):
     facility_type = models.CharField(
         max_length=30,
         choices=FacilityType.choices,
-        default=FacilityType.OTHER,
+        default=FacilityType.UNIVERSITY,
     )
 
     address = models.TextField(blank=True)

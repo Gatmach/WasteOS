@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from .models import (
-    CollectionVehicle,
-    Driver,
+    CollectionRecord,
     CollectionRoute,
     CollectionSchedule,
-    CollectionRecord,
+    CollectionVehicle,
+    Driver,
 )
 
 
@@ -14,12 +14,26 @@ class CollectionVehicleAdmin(admin.ModelAdmin):
     list_display = (
         "registration_number",
         "name",
-        "status",
         "capacity_kg",
+        "status",
         "is_active",
     )
-    list_filter = ("status", "is_active")
-    search_fields = ("registration_number", "name")
+
+    search_fields = (
+        "registration_number",
+        "name",
+    )
+
+    list_filter = (
+        "status",
+        "is_active",
+    )
+
+    ordering = (
+        "registration_number",
+    )
+
+    list_per_page = 25
 
 
 @admin.register(Driver)
@@ -31,11 +45,24 @@ class DriverAdmin(admin.ModelAdmin):
         "license_number",
         "is_active",
     )
+
     search_fields = (
         "first_name",
         "last_name",
+        "phone_number",
         "license_number",
     )
+
+    list_filter = (
+        "is_active",
+    )
+
+    ordering = (
+        "first_name",
+        "last_name",
+    )
+
+    list_per_page = 25
 
 
 @admin.register(CollectionRoute)
@@ -44,7 +71,24 @@ class CollectionRouteAdmin(admin.ModelAdmin):
         "name",
         "is_active",
     )
-    search_fields = ("name",)
+
+    search_fields = (
+        "name",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    filter_horizontal = (
+        "zones",
+    )
+
+    ordering = (
+        "name",
+    )
+
+    list_per_page = 25
 
 
 @admin.register(CollectionSchedule)
@@ -54,12 +98,40 @@ class CollectionScheduleAdmin(admin.ModelAdmin):
         "vehicle",
         "driver",
         "scheduled_date",
+        "scheduled_time",
         "status",
     )
+
+    search_fields = (
+        "route__name",
+        "vehicle__registration_number",
+        "driver__first_name",
+        "driver__last_name",
+    )
+
     list_filter = (
         "status",
         "scheduled_date",
     )
+
+    autocomplete_fields = (
+        "route",
+        "vehicle",
+        "driver",
+    )
+
+    list_select_related = (
+        "route",
+        "vehicle",
+        "driver",
+    )
+
+    ordering = (
+        "-scheduled_date",
+        "-scheduled_time",
+    )
+
+    list_per_page = 25
 
 
 @admin.register(CollectionRecord)
@@ -67,7 +139,32 @@ class CollectionRecordAdmin(admin.ModelAdmin):
     list_display = (
         "smart_bin",
         "schedule",
+        "fill_level_before",
         "weight_collected",
         "collected_at",
     )
-    list_filter = ("collected_at",)
+
+    search_fields = (
+        "smart_bin__name",
+        "schedule__route__name",
+    )
+
+    autocomplete_fields = (
+        "schedule",
+        "smart_bin",
+    )
+
+    list_select_related = (
+        "schedule",
+        "smart_bin",
+    )
+
+    readonly_fields = (
+        "collected_at",
+    )
+
+    ordering = (
+        "-collected_at",
+    )
+
+    list_per_page = 50
