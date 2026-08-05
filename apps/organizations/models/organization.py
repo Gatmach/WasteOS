@@ -4,7 +4,10 @@ from apps.common.models import BaseModel
 
 
 class Organization(BaseModel):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        unique=True,    
+        )
 
     code = models.CharField(
         max_length=30,
@@ -20,7 +23,10 @@ class Organization(BaseModel):
 
     address = models.TextField(blank=True)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True,
+        )
 
     class Meta:
         ordering = ("name",)

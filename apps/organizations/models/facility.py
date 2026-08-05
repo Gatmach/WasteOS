@@ -11,6 +11,7 @@ class Facility(BaseModel):
         Organization,
         on_delete=models.CASCADE,
         related_name="facilities",
+        db_index=True,
     )
 
     name = models.CharField(max_length=255)
@@ -39,10 +40,15 @@ class Facility(BaseModel):
         blank=True,
     )
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True,
+    )
 
     class Meta:
         ordering = ("name",)
+        verbose_name = "Facility"
+        verbose_name_plural = "Facilities"
         constraints = [
             models.UniqueConstraint(
                 fields=["organization", "code"],

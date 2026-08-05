@@ -55,4 +55,8 @@ urlpatterns = [
         "api-auth/", 
         include("rest_framework.urls")
     ),
+    path(
+        "api/organizations/",
+        include("apps.organizations.urls"),
+    ),
 ]
