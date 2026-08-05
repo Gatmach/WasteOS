@@ -1,7 +1,5 @@
 from django.contrib import admin
-
 from .models import Organization, Facility, Zone
-from apps.organizations.choices import FacilityType
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):

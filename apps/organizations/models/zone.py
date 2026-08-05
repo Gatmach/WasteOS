@@ -9,6 +9,7 @@ class Zone(BaseModel):
         Facility,
         on_delete=models.CASCADE,
         related_name="zones",
+        db_index=True,
     )
 
     name = models.CharField(max_length=255)
@@ -16,10 +17,15 @@ class Zone(BaseModel):
 
     description = models.TextField(blank=True)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True,
+    )
 
     class Meta:
         ordering = ["name"]
+        verbose_name = "Zone"
+        verbose_name_plural = "Zones"
         constraints = [
             models.UniqueConstraint(
                 fields=["facility", "code"],
