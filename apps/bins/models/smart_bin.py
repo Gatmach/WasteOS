@@ -3,6 +3,10 @@ from django.db import models
 from apps.bins.choices import BinStatus
 from apps.common.models import BaseModel
 from apps.organizations.models import Zone
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+)
 
 
 class SmartBin(BaseModel):
@@ -24,12 +28,20 @@ class SmartBin(BaseModel):
         max_digits=5,
         decimal_places=2,
         default=0,
+        validators = [
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
     )
 
     battery_level = models.DecimalField(
         max_digits=5,
         decimal_places=2,
         default=100,
+        validators = [
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
     )
 
     status = models.CharField(
@@ -56,6 +68,10 @@ class SmartBin(BaseModel):
 
     class Meta:
         ordering = ("name",)
+        indexes = [
+            models.Index(fields=["status"]),
+            models.Index(fields=["is_active"]),
+        ]
         constraints = [
             models.UniqueConstraint(
                 fields=["zone", "code"],

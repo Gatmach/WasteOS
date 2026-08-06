@@ -18,6 +18,8 @@ class SmartBinAdmin(admin.ModelAdmin):
         "name",
         "code",
         "zone__name",
+        "zone__facility__name",
+        "zone__facility__organization__name",
     )
 
     list_filter = (
@@ -32,6 +34,8 @@ class SmartBinAdmin(admin.ModelAdmin):
 
     list_select_related = (
         "zone",
+        "zone__facility",
+        "zone__facility__organization",
     )
 
     ordering = (
@@ -48,6 +52,7 @@ class AlertAdmin(admin.ModelAdmin):
         "title",
         "smart_bin",
         "alert_type",
+        "severity",
         "status",
         "triggered_at",
     )
@@ -61,6 +66,7 @@ class AlertAdmin(admin.ModelAdmin):
     list_filter = (
         "alert_type",
         "status",
+        "severity",
     )
 
     autocomplete_fields = (
@@ -69,6 +75,7 @@ class AlertAdmin(admin.ModelAdmin):
 
     list_select_related = (
         "smart_bin",
+        "smart_bin__zone",
     )
 
     ordering = (

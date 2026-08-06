@@ -45,6 +45,11 @@ class Alert(BaseModel):
 
     class Meta:
         ordering = ("-triggered_at",)
+        indexes = [
+            models.Index(fields=["status"]),
+            models.Index(fields=["severity"]),
+            models.Index(fields=["triggered_at"]),
+        ]
 
     def __str__(self):
         return f"{self.smart_bin.name} - {self.title}"
