@@ -39,5 +39,10 @@ class CollectionRecord(BaseModel):
     class Meta:
         ordering = ["-collected_at"]
 
+        indexes = [
+            models.Index(fields=["collected_at"]),
+            # models.Index(fields=["schedule"]),
+        ]
+
     def __str__(self):
         return f"{self.smart_bin} - {self.collected_at}"

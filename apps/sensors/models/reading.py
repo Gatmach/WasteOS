@@ -10,6 +10,7 @@ class SensorReading(BaseModel):
         Sensor,
         on_delete=models.CASCADE,
         related_name="readings",
+        db_index=True,
     )
 
     value = models.FloatField()
@@ -31,6 +32,11 @@ class SensorReading(BaseModel):
         ordering = ("-recorded_at",)
         verbose_name = "Sensor Reading"
         verbose_name_plural = "Sensor Readings"
+
+        indexes = [
+            models.Index(fields=["recorded_at"]),
+            # models.Index(fields=["sensor"]),
+        ]
 
     def __str__(self):
         return (

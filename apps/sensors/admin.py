@@ -57,6 +57,7 @@ class SensorReadingAdmin(admin.ModelAdmin):
 
     list_filter = (
         "sensor__sensor_type",
+        "recorded_at",
     )
 
     autocomplete_fields = (

@@ -30,5 +30,10 @@ class CollectionVehicle(BaseModel):
         verbose_name = "Collection Vehicle"
         verbose_name_plural = "Collection Vehicles"
 
+        indexes = [
+            models.Index(fields=["status"]),
+            models.Index(fields=["is_active"]),
+        ]
+
     def __str__(self):
         return f"{self.registration_number} - {self.name}"

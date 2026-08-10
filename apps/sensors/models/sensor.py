@@ -10,6 +10,7 @@ class Sensor(BaseModel):
         SmartBin,
         on_delete=models.CASCADE,
         related_name="sensors",
+        db_index=True,
     )
 
     name = models.CharField(max_length=100)
@@ -35,6 +36,11 @@ class Sensor(BaseModel):
         ordering = ("name",)
         verbose_name = "Sensor"
         verbose_name_plural = "Sensors"
+
+        indexes = [
+            models.Index(fields=["sensor_type"]),
+            models.Index(fields=["is_active"]),
+        ]
 
     def __str__(self):
         return f"{self.name} ({self.get_sensor_type_display()})"

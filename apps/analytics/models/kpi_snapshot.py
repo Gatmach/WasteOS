@@ -10,11 +10,17 @@ class KPISnapshot(BaseModel):
         choices=KPIType.choices,
     )
 
-    total_bins = models.PositiveIntegerField(default=0)
+    total_bins = models.PositiveIntegerField(
+        default=0,
+    )
 
-    active_bins = models.PositiveIntegerField(default=0)
+    active_bins = models.PositiveIntegerField(
+        default=0,
+    )
 
-    collections_completed = models.PositiveIntegerField(default=0)
+    collections_completed = models.PositiveIntegerField(
+        default=0,
+    )
 
     waste_collected_kg = models.DecimalField(
         max_digits=12,

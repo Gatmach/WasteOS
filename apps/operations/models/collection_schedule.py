@@ -41,5 +41,10 @@ class CollectionSchedule(BaseModel):
     class Meta:
         ordering = ["scheduled_date", "scheduled_time"]
 
+        indexes = [
+            models.Index(fields=["scheduled_date"]),
+            models.Index(fields=["status"]),
+        ]
+
     def __str__(self):
         return f"{self.route} ({self.scheduled_date})"

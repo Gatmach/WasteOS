@@ -23,5 +23,9 @@ class CollectionRoute(BaseModel):
     class Meta:
         ordering = ["name"]
 
+        indexes = [
+            models.Index(fields=["is_active"]),
+        ]
+
     def __str__(self):
         return self.name

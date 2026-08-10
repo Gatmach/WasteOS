@@ -24,5 +24,9 @@ class Driver(BaseModel):
     class Meta:
         ordering = ["first_name", "last_name"]
 
+        indexes = [
+            models.Index(fields=["is_active"]),
+        ]
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

@@ -63,4 +63,20 @@ urlpatterns = [
         "api/bins/",
         include("apps.bins.urls"),
     ),
+    path(
+        "api/sensors/",
+        include("apps.sensors.urls"),
+    ),
+    path(
+        "api/operations/",
+        include("apps.operations.urls"),
+    ),
+    path(
+        "api/analytics/",
+        include("apps.analytics.urls"),
+    ),
+    path(
+        "api/dashboard/",
+        include("apps.dashboard.urls"),
+    ),
 ]
