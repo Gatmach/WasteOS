@@ -83,4 +83,8 @@ urlpatterns = [
         "api/reports/",
         include("apps.reports.urls"),
     ),
+    path(
+        "api/website/",
+        include("apps.website.urls"),
+    ),
 ]
