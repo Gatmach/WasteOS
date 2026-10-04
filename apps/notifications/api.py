@@ -1,11 +1,13 @@
 
 from rest_framework import serializers
-
+from apps.notifications.choices import (
+    NotificationChannel,
+    NotificationType,
+)
 from apps.notifications.models import (
     Notification,
     NotificationLog,
 )
-
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -57,11 +59,12 @@ class CreateNotificationSerializer(serializers.Serializer):
 
     message = serializers.CharField()
 
-    notification_type = serializers.CharField(
-        max_length=20,
+    notification_type = serializers.ChoiceField(
+        choices=NotificationType.choices,
     )
 
-    channel = serializers.CharField(
-        max_length=20,
+    channel = serializers.ChoiceField(
+        choices=NotificationChannel.choices,
         required=False,
+        default=NotificationChannel.IN_APP,
     )
